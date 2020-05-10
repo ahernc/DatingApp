@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Controllers
 {
-    // http://localhost:5000/api/values
+    [Authorize]
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController]    
     public class ValuesController : ControllerBase
     {
+        // notice the inheritance about: ControllerBase gives us all the http stuff we need, without
+        //  the Mvc View functionality (in Controller) which we do Not need (because I'll put that in Angular)
+
         private readonly DataContext _context;
         public ValuesController(DataContext context)
         {
@@ -21,7 +25,7 @@ namespace DatingApp.API.Controllers
 
 
         // GET api/values
-        [HttpGet]
+        [HttpGet]        
         public async Task<IActionResult> GetValues()
         {
             // IActionResult allows a http result instead of the default IEnumerable<string/int etc>
@@ -33,7 +37,8 @@ namespace DatingApp.API.Controllers
 
 
         // GET api/values/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}")]        
+        [AllowAnonymous]
         public async Task<IActionResult> GetValue(int id)
         {
             var value = await _context.Values.FirstOrDefaultAsync(x => x.Id == id);
