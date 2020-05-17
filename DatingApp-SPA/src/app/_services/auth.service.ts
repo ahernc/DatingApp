@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   register(model: any) {
-    //register is very simple... just pass the model.
+    // register is very simple... just pass the model.
     // need to subscribe to it now in the register components.
     return this.http.post(this.baseUrl + 'register', model);
   }
