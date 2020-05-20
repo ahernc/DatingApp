@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using DatingApp.API.Data;
 using DatingApp.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -36,12 +37,21 @@ namespace DatingApp.API
         {
             services.AddDbContext<DataContext>(x => x.UseSqlite
                 (Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
+
+            services.AddControllers().AddNewtonsoftJson(opt =>
+                {
+                    // NB: otherwise a self referencing loop will occur on any one-to-many type classes
+                    opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                }
+            );  // L76: AddNewtonsoftJson originally threw an error. Open/Close VSCode if it happens...
+
             services.AddCors();  // Allow angular to call the API
+            
+            services.AddAutoMapper(typeof(DatingRepository).Assembly); // L78: AddAutoMapper can cause error, so force the type of the repository.
 
             // Tell the startup class about our services:
             services.AddScoped<IAuthRepository, AuthRepository>();
-
+            services.AddScoped<IDatingRepository, DatingRepository>(); // L75: creating new repository for the API.
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
