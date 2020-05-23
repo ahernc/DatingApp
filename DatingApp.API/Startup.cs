@@ -97,17 +97,21 @@ namespace DatingApp.API
                 });  
             }
 
+            // Ordering here is important
+            
             // app.UseHttpsRedirection(); disabled at the same time as removing https from the launchSettings.json
             app.UseRouting();
-
-            // NB: ordering. UseCors must go here.
-            // Weak security... but for development this is fine.
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             // .net core 3.0: needs to be added just before app.UseAuthorization():
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            // NB: ordering. UseCors must go here.
+            // Weak security... but for development this is fine.
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            
 
             app.UseEndpoints(endpoints =>
             {

@@ -5,3 +5,17 @@ Including Microsoft.AspNetCore.Mvc.NewtonsoftJson in .net core 3.*
 L78
 Adding nuget package for AutoMapper.Extensions.Microsoft.DependencyInjection
 
+L86
+When creating the member-card Component inside the members folder, it did not automatically 
+add the MemberCardComponent declaration in the ngModule in app.module.ts
+Also had to add the import manually at the top of app module
+Bootstrap card 
+Notice on the member-list html, the syntax for the member card and passing in the child component (the user)
+    <div *ngFor="let user of users" class="col-lg-2 col-md-3 col-sm-6">
+      <app-member-card [user]="user"></app-member-card>
+    </div>
+
+Ordering of Use statements in Startup.cs is important 
+https://www.udemy.com/course/build-an-app-with-aspnet-core-and-angular-from-scratch/learn/lecture/8708474#questions/10082264
+
+
