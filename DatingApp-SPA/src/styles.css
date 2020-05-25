@@ -53,3 +53,7 @@
     border-top: 1px solid #eee;
     padding: 15px 0;
   }
+
+/* L94: There is an issue with the ngx-gallery recommended in the L94; forums suggest
+using https://github.com/kolkov/ngx-gallery. This Style is necessary to get it working properly: */
+  .ngx-gallery { display: inline-block; margin-bottom: 20px; }
