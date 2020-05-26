@@ -18,9 +18,8 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [ 
             // All of the following paths are protected in one statement now instead of individually
-            { path: 'members', component: MemberListComponent,
-            resolve: {user: MemberListResolver} }, // L93 added resolver
-            { path: 'members/:id', component: MemberDetailComponent, 
+            { path: 'members', component: MemberListComponent, resolve: {users: MemberListResolver} }, // L93 added resolver
+            { path: 'members/:id', component: MemberDetailComponent,
                 resolve: {user: MemberDetailResolver}}, // L93: added resolver
             { path: 'messages', component: MessagesComponent },
             { path: 'lists', component: ListsComponent }
