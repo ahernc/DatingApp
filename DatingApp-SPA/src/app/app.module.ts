@@ -7,8 +7,8 @@ import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-// import { NgxGalleryModule } from '@kolkov/ngx-gallery';
-// Nice to keep yje angular imports at the top... not absolutely necessary
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+// Nice to keep the angular imports at the top... not absolutely necessary
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ListsComponent } from './lists/lists.component';
@@ -48,7 +48,7 @@ export function tokenGetter() {
     BsDropdownModule.forRoot(), // followthedocs
     TabsModule.forRoot(), // L92: Had to import the tabs module manually above... just watch that with some of teh ngxbootstrap stuff.
     RouterModule.forRoot(appRoutes), // L63
-    // NgxGalleryModule,
+    NgxGalleryModule,
     JwtModule.forRoot({
       // This is how to fix the login issue: the Bearer token is automatically sent up in the next request after login
       config: {
