@@ -1,3 +1,5 @@
+tslink.js: string literal: false
+
 L76
 https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-3.1&tabs=visual-studio
 Including Microsoft.AspNetCore.Mvc.NewtonsoftJson in .net core 3.*
@@ -19,3 +21,7 @@ Ordering of Use statements in Startup.cs is important
 https://www.udemy.com/course/build-an-app-with-aspnet-core-and-angular-from-scratch/learn/lecture/8708474#questions/10082264
 
 
+L111: 3rd party File upload:
+https://github.com/valor-software/ng2-file-upload
+With Angular 9 use version 1.4L
+npm install ng2-file-upload@1.4.0 --save 

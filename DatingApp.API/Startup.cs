@@ -47,6 +47,8 @@ namespace DatingApp.API
 
             services.AddCors();  // Allow angular to call the API
             
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+
             services.AddAutoMapper(typeof(DatingRepository).Assembly); // L78: AddAutoMapper can cause error, so force the type of the repository.
 
             // Tell the startup class about our services:
