@@ -38,11 +38,14 @@ export class UserService {
     return this.http.put(this.baseUrl + 'users/' + id, user);
   }
 
-
   setMainPhoto(userId: number, id: number) {
     // Because this is a post request, to satisfy the requirements send up an empty body {} in the request
     // Not entirely restful, but it's a happy compromise to keep things simple
     return this.http.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {});
+  }
+
+  deletePhoto(userId: number, id: number) {
+    return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id);
   }
 
 }
