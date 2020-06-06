@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\DatingApp-SPA"
+    "\\DatingApp-SPA",
+    "\\DatingApp.API"
   ],
-  "SelectedNode": "\\DatingApp-SPA\\src\\app\\_services\\error.interceptor.ts",
+  "SelectedNode": "\\DatingApp.API\\Startup.cs",
   "PreviewInSolutionExplorer": false
 }
