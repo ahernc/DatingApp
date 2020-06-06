@@ -69,7 +69,12 @@ export class PhotoEditorComponent implements OnInit {
       photo.isMain = true;
       // Usage of an Output properly: emit the url
       // Then you need to change the parent member template (member-edit component html
-      this.getMemberPhotoChange.emit(photo.url);
+      // L119: removing the emit approach when we use a BehaviorComponent
+      //    this.getMemberPhotoChange.emit(photo.url);
+      this.authService.changeMemberPhoto(photo.url);
+      this.authService.currentUser.photoUrl = photo.url;
+      // L119 Overwrite user in the localStorage with the new values if the main photo changes!
+      localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
     }, error => {
       this.alertify.error(error);
     });

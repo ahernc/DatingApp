@@ -25,3 +25,11 @@ L111: 3rd party File upload:
 https://github.com/valor-software/ng2-file-upload
 With Angular 9 use version 1.4L
 npm install ng2-file-upload@1.4.0 --save 
+
+L118:  Any to Any component communication for components without any direct relationship.
+some important notes here: using the AuthService.  Then child components can subscribe to 
+the property in the AuthService (for MainPhotoUrl).
+Done using the BehaviorSubject. A type of Observable
+Can be subscribed to
+Subscrivbers can receive updated results
+Subject is an observer (so we can send values to it)

@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
   // L58: added while we were showing the username in the top right of the nav html
   ngOnInit() {
     const token = localStorage.getItem('token');
-    
     const user: User = JSON.parse(localStorage.getItem('user')); // for the purpose of accessing the user in the nav bar...
 
     if (token) {
@@ -26,6 +25,7 @@ export class AppComponent implements OnInit {
     }
     if (user) {
       this.authService.currentUser = user;
+      this.authService.changeMemberPhoto(user.photoUrl);
     }
   }
 }

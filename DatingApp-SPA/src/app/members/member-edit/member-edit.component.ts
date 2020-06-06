@@ -14,6 +14,7 @@ import { UserService } from 'src/app/_services/user.service';
 export class MemberEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
   user: User;
+  photoUrl: string;
 
   // This allows the user the option of not losing changes if they try to close the browser.
   // Very important to have this on any edit form:
@@ -35,6 +36,7 @@ export class MemberEditComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.user = data['user']; // fixed underline issue here by changing tslint no-string-literal setting.
     });
+    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
   }
 
   updateUser() {
