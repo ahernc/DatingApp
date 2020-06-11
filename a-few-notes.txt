@@ -33,3 +33,15 @@ Done using the BehaviorSubject. A type of Observable
 Can be subscribed to
 Subscrivbers can receive updated results
 Subject is an observer (so we can send values to it)
+
+Section 12: 
+L124:  Reactive forms, as opposed to Template Forms
+FormGroup -- tracks the validitity state.  Sounds similar to Validator using ViewState in MVC
+validation is in component and not the template
+Steps to adding a module.. 
+1. declare the object in ts of the new type (e.g. FormGroup)
+2. initialise it in ngOnInit (if applicable... e.g. with registerForm)
+3. if the module is not already added, include it in app.module.ts (appropriate module should automatically auto include in headers)
+4. change html to use syntax... 
+Validator is included in framework
+A custom validation is for checking matching passwords

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -10,18 +11,31 @@ import { AlertifyService } from '../_services/alertify.service';
 export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter(); // make sure to use angular/core components... 
   model: any = {};
+  registerForm: FormGroup;
+  
 
   constructor(private authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {
+    this.registerForm = new FormGroup({
+      username:  new FormControl('Hello', Validators.required),
+      password:  new FormControl('',
+        [Validators.required, Validators.minLength(4), Validators.maxLength(8)]), // Match the API validation
+      confirmPassword:   new FormControl('', Validators.required)
+    }, this.passwordMatchValidator);
+  }
+
+  passwordMatchValidator(g: FormGroup) {
+    return g.get('password').value === g.get('confirmPassword').value ? null : {'mismatch' : true};
   }
 
   register() {
-    this.authService.register(this.model).subscribe(() => {
-      this.alertify.success('Registration successful');
-    }, error => {
-      this.alertify.error(error);
-    });
+    // this.authService.register(this.model).subscribe(() => {
+    //   this.alertify.success('Registration successful');
+    // }, error => {
+    //   this.alertify.error(error);
+    // });
+    console.log(this.registerForm.value); // outputs everything in the Form...
   }
 
   cancel() {
