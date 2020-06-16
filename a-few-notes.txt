@@ -67,3 +67,14 @@ Validation feedback
 The Date Problem
 Hooking up to applicable 
 Default Photo fix
+
+Section 13: Action Filters in Asp.net core
+DateTimes now more user friendly
+Tracking when the user last logged in.
+TimeAgo pipe
+https://www.npmjs.com/package/ngx-timeago
+ActionFilters can be added to Controller (e.g. UsersController), or at Application level.. whatever is appropriate
+
+Had to add LastAction property to User 
+ dotnet ef migrations add LastActive (make sure sqlite is not holding onto the table)
+ dotnet ef database update 

@@ -54,7 +54,8 @@ namespace DatingApp.API
             // Tell the startup class about our services:
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>(); // L75: creating new repository for the API.
-
+            services.AddScoped<LogUserActivity>();
+            
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -67,6 +68,8 @@ namespace DatingApp.API
                         ValidateAudience = false
                     };
                 });
+
+            
         }
 
 

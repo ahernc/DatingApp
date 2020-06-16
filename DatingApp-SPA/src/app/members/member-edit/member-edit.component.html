@@ -31,7 +31,7 @@
           <div>
             <strong>Member since:
             </strong>
-            <p>{{user.created}}</p>
+            <p>{{user.created | date: 'mediumDate'}}</p>
           </div>
         </div>
         <div class="card-footer" *ngIf="editForm.dirty">          
