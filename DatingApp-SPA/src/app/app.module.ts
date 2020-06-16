@@ -10,6 +10,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
+import { TimeagoModule } from 'ngx-timeago';
 // Nice to keep the angular imports at the top... not absolutely necessary
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -63,6 +64,7 @@ export function tokenGetter() {
     RouterModule.forRoot(appRoutes), // L63
     NgxGalleryModule,
     FileUploadModule,
+    TimeagoModule.forRoot(),
     JwtModule.forRoot({
       // This is how to fix the login issue: the Bearer token is automatically sent up in the next request after login
       config: {

@@ -22,6 +22,6 @@ namespace DatingApp.API.Models
         // EntityFramework will infer from this that it is a
         //  one-to-many when it sees ICollection when we create the migration
         public ICollection<Photo> Photos { get; set; }
-
+        public DateTime LastActive { get; set; }
     }
 }
