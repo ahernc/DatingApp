@@ -60,3 +60,10 @@ L133: fixing the photo...
 
 Practice conditionals..
 
+Summary:
+Reactive Forms introduction
+validationCustom validators
+Validation feedback
+The Date Problem
+Hooking up to applicable 
+Default Photo fix
