@@ -41,10 +41,10 @@ export class AuthService {
       );
   }
 
-  register(model: any) {
+  register(user: User) {
     // register is very simple... just pass the model.
     // need to subscribe to it now in the register components.
-    return this.http.post(this.baseUrl + 'register', model);
+    return this.http.post(this.baseUrl + 'register', user);
   }
 
 

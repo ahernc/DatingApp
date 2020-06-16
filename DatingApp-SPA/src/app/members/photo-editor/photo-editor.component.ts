@@ -58,6 +58,12 @@ export class PhotoEditorComponent implements OnInit {
         };
         // Push the photo now into the array:
         this.photos.push(photo);
+        if (photo.isMain) {
+          // L133: Copied from setMainPhoto method:
+          this.authService.changeMemberPhoto(photo.url);
+          this.authService.currentUser.photoUrl = photo.url;
+          localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+        }
       }
     }
   }

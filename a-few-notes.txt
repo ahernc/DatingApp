@@ -45,3 +45,18 @@ Steps to adding a module..
 4. change html to use syntax... 
 Validator is included in framework
 A custom validation is for checking matching passwords
+
+L128 
+FormBuilder - this most common way to build angular forms
+
+L130
+Dates:
+http://caniuse.com/
+dates... 
+polyfills.ts: uncomment the IE9,10,11 es6 options.
+just stick to ngx Bootstrap for the datepicker
+
+L133: fixing the photo... 
+
+Practice conditionals..
+
