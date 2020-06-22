@@ -19,7 +19,7 @@ export class MemberListComponent implements OnInit {
     // this.loadUsers();
       // L93: Resolver approach
       this.route.data.subscribe(data => {
-        this.users = data.users;
+        this.users = data.users.result;
       });
   }
 

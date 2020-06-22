@@ -81,3 +81,11 @@ Had to add LastAction property to User
 
 
 S14: L140 PagedList
+PagedList created
+
+L143 
+SPA: created interface paginations
+in the userservice.ts: Observable of body, means you don't get access top headers.
+we need access to pagination in the header... 
+so updated the GetUsers method in userservicve
+then update the member-list.resolver

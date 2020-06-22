@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HTTP_INTERCEPTORS, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
+import { PaginatedResult } from '../_models/pagination';
+import { map } from 'rxjs/operators';
 
-// L89: Removed httpOptions when we used the jwtimport for handling the token. This is the fix for the first login 
-// issue where you get the 401 error.  A full page refresh is the only way to get around it otherwise... 
+// L89: Removed httpOptions when we used the jwtimport for handling the token. This is the fix for the first login
+// issue where you get the 401 error.  A full page refresh is the only way to get around it otherwise...
 // const httpOptions = {
 //   headers: new HttpHeaders(
 //     {
@@ -22,10 +24,28 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<User[]> {
+  getUsers(page?, itemsPerPage?): Observable<PaginatedResult<User[]>> {
     // to fix the error about Observable, typesafe it:
     // L89: return this.http.get<User[]>(this.baseUrl + 'users', httpOptions);
-    return this.http.get<User[]>(this.baseUrl + 'users');
+    const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
+
+    let params = new HttpParams();
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    return this.http.get<User[]>(this.baseUrl + 'users', { observe: 'response', params } )
+      .pipe(
+        map(response => {
+          paginatedResult.result = response.body;
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          }
+          return paginatedResult;
+        })
+      );
   }
 
   getUser(id): Observable<User> {
