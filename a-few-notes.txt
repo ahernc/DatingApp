@@ -78,3 +78,6 @@ ActionFilters can be added to Controller (e.g. UsersController), or at Applicati
 Had to add LastAction property to User 
  dotnet ef migrations add LastActive (make sure sqlite is not holding onto the table)
  dotnet ef database update 
+
+
+S14: L140 PagedList
