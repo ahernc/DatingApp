@@ -89,3 +89,21 @@ in the userservice.ts: Observable of body, means you don't get access top header
 we need access to pagination in the header... 
 so updated the GetUsers method in userservicve
 then update the member-list.resolver
+
+L144
+pagination from ngxbootstrap https://valor-software.com/ngx-bootstrap/#/pagination
+used custom links content
+https://valor-software.com/ngx-bootstrap/#/pagination#custom-links-content
+
+https://valor-software.com/ngx-bootstrap/#/pagination#page-changed-event
+
+IN the member=list html:
+    [totalItems]="pagination.totalItems"
+    [itemsPerPage]="pagination.itemsPerPage"
+    [(ngModel)]="pagination.currentPage"
+    (pageChanged)="pageChanged($event)"
+
+component:
+ pageChanged(event: any): void {
+    this.page = event.page;
+  }    

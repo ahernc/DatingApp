@@ -5,9 +5,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
+
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+
+
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
 import { TimeagoModule } from 'ngx-timeago';
@@ -60,6 +64,7 @@ export function tokenGetter() {
     BrowserAnimationsModule, // L59
     BsDropdownModule.forRoot(), // followthedocs
     BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
     TabsModule.forRoot(), // L92: Had to import the tabs module manually above... just watch that with some of teh ngxbootstrap stuff.
     RouterModule.forRoot(appRoutes), // L63
     NgxGalleryModule,
