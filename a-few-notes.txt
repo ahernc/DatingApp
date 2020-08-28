@@ -107,3 +107,5 @@ component:
  pageChanged(event: any): void {
     this.page = event.page;
   }    
+
+Don't forget .AsQueryable(); for subsequent queries
