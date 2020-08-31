@@ -10,6 +10,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
@@ -66,6 +67,7 @@ export function tokenGetter() {
     BsDatepickerModule.forRoot(),
     PaginationModule.forRoot(),
     TabsModule.forRoot(), // L92: Had to import the tabs module manually above... just watch that with some of teh ngxbootstrap stuff.
+    ButtonsModule.forRoot(),
     RouterModule.forRoot(appRoutes), // L63
     NgxGalleryModule,
     FileUploadModule,

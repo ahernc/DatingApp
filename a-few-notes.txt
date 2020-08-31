@@ -109,3 +109,8 @@ component:
   }    
 
 Don't forget .AsQueryable(); for subsequent queries
+
+L147 adding the filtering functionality:
+Strange issue with the Gender dropdown.
+Tried this but it is not the solution here
+https://www.udemy.com/course/build-an-app-with-aspnet-core-and-angular-from-scratch/learn/lecture/8715296#questions/5055022
