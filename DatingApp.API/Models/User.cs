@@ -23,5 +23,8 @@ namespace DatingApp.API.Models
         //  one-to-many when it sees ICollection when we create the migration
         public ICollection<Photo> Photos { get; set; }
         public DateTime LastActive { get; set; }
+
+        public ICollection<Like> Likers { get; set; }
+        public ICollection<Like> Likees { get; set; }
     }
 }
