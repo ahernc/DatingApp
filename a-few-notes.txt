@@ -116,7 +116,9 @@ Tried this but it is not the solution here
 https://www.udemy.com/course/build-an-app-with-aspnet-core-and-angular-from-scratch/learn/lecture/8715296#questions/5055022
 
 --------
-Steps for adding classes, API, implementation of DTO using AutoMapper (for the Message class)... 
+Steps for adding classes, API, implementation of DTO using AutoMapper (Example here is for the Message class)... 
+Branch: https://github.com/ahernc/DatingApp/compare/Section-16-Adding-Private-Messaging
+
 . Create class in API.Models
 . Entity Framework: add the DbSet
 . In DataContext: ensure method exists:
