@@ -89,5 +89,19 @@ namespace DatingApp.API.Controllers
             throw new Exception("Creating the message failed on save");
         }
 
+        // Watch out: definition needs to be different here to the HttpGet above.. so add "thread"
+        [HttpGet("thread/{recipientId}")]
+        public async Task<IActionResult> GetMessageThread(int userId, int recipientId)
+        {
+               if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var messagesFromRepo = await _repo.GetMessageThread(userId, recipientId);
+
+            var messageThread = _mapper.Map<IEnumerable<MessageToReturnDto>>(messagesFromRepo);
+            
+            return Ok(messageThread);
+
+        }
     }
 }
