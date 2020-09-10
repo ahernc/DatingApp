@@ -114,3 +114,71 @@ L147 adding the filtering functionality:
 Strange issue with the Gender dropdown.
 Tried this but it is not the solution here
 https://www.udemy.com/course/build-an-app-with-aspnet-core-and-angular-from-scratch/learn/lecture/8715296#questions/5055022
+
+--------
+Steps for adding classes, API, implementation of DTO using AutoMapper (for the Message class)... 
+. Create class in API.Models
+. Entity Framework: add the DbSet
+. In DataContext: ensure method exists:
+      protected override void OnModelCreating(ModelBuilder builder): 
+    In this method, define the structure of the class... e.g. Many to Many, one to many is usually straightforwad, but many to many 
+    needs a bit of code. For example:
+
+            builder.Entity<Message>()
+                .HasOne(u => u.Sender) // one person sends the message
+                .WithMany(m => m.MessagesSent)  // One person can have a collection of sent messages, meaning one-many
+                .OnDelete(DeleteBehavior.Restrict); // don't cascade delete
+
+            builder.Entity<Message>()
+                .HasOne(u => u.Recipient)  // each message can only be sent to one person
+                .WithMany(m => m.MessagesReceived)  // a person can receive many messages
+                .OnDelete(DeleteBehavior.Restrict); // don't cascade delete
+
+. dotnet ef migrations add MessageEntityAdded (check the code. Ensure field names are correct. Ensure foreign keys defined correctly)
+. dotnet ef database update: then check the database to ensure table created correctly
+. Create DTO in API.Dtos if necessary: in this case, MessageForCreationDto
+. IDatingRepository: add the methods needed... e.g.:
+    Task<PagedList<Message>> GetMessagesForUser();
+    Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
+. DatingRepository: implement interface.  Leave not implemented for now.
+  
+         
+. Create controller in API.Controllers. This needs to implement ControllerBase. Annotations:
+   [ServiceFilter(typeof(LogUserActivity))]
+   [Authorize]
+   [Route("api/users/{userid}/[controller]")]  // change as necessary
+   [ApiController]
+
+. Standard imports tend to include:
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using AutoMapper;
+using DatingApp.API.Data;
+using DatingApp.API.Dtos;
+using DatingApp.API.Helpers;
+using DatingApp.API.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+
+. First 2 things needed in controller: 
+    private readonly IMapper _mapper;
+    private readonly IDatingRepository _repo;
+
+. In AutoMapperProfiles:  CreateMap<MessageForCreationDto, Message>();
+-- but importantly: Add the Reverse() method so it will hide the password Hash and Salt
+  CreateMap<MessageForCreationDto, Message>().Reverse();
+  
+. ctor: 
+      public MessagesController(IDatingRepository repo, IMapper mapper)
+        {
+            this._repo = repo;
+            this._mapper = mapper;
+        }
+
+
+.Added a Helper class: MessageParams
+.Then implemented fully the GetMessages method in DatingRepository
+
+

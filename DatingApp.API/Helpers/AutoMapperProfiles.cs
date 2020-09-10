@@ -21,6 +21,10 @@ namespace DatingApp.API.Helpers
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
             CreateMap<UserForRegisterDto, User>();
+
+            // ReverseMap: Reverses the mapping the other way so that the passwordSalt and Hash are not included by default
+            CreateMap<MessageForCreationDto, Message>().ReverseMap();   
+
         }
     }
 }
