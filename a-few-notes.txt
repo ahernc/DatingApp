@@ -183,4 +183,38 @@ using Microsoft.AspNetCore.Mvc;
 .Added a Helper class: MessageParams
 .Then implemented fully the GetMessages method in DatingRepository
 
+--- SPA Side of the Message implementation
+L166 Working with the message component in the SPA
+
+_models --> RC --> Generate new interface
+message
+-- body of this will be 
+export interface Message {
+}
+
+then add the properties... 
+
+In user.service.ts: new method "getMessages"
+make sure to import the right refernence for Message[] 
+Paging info is the same as the way we did userparams
+study that code for the getMessages function again -- some nice tricks here
+
+_resolvers -- copy member-list.resolver
+renamed to messages.resolver.ts
+Change the code there to reflect Messages
+
+Because itis a resolver, we need to add it to app.module
+In app.module.ts: add it to list of providers.
+
+And add it to routes.ts:
+{ path: 'messages', component: MessagesComponent, resolve: {messages: MessagesResolver} },
+
+Now open messages.component.ts
+add code as normal to implement it... 
+
+Flesh out the constructor... 
+  constructor(private userService: UserService, private authService: AuthService,
+      private route: ActivatedRoute, private alertify: AlertifyService) { }
+
+implementation the functions.... similar to user Search results.
 
