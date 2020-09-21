@@ -212,9 +212,46 @@ And add it to routes.ts:
 Now open messages.component.ts
 add code as normal to implement it... 
 
-Flesh out the constructor... 
+L166: Flesh out the constructor... 
   constructor(private userService: UserService, private authService: AuthService,
       private route: ActivatedRoute, private alertify: AlertifyService) { }
 
 implementation the functions.... similar to user Search results.
+pagination
+
+L167: html for messages.component.html
+Added a few mits of CSS, and the bootstrap tag  mr-1
+to the img on the circular image
+
+Message thread: new function getMessageThread in the user.service
+
+Generate component "member-messages"
+
+Include in app.module MemberMessagesComponent
+It should get automatically included
+
+member-messages.component.ts -- added the functionality
+parent-child component interation here... 
+This is achieved using @Input property
+Bring in Input from Angular core
+Also need array of Messages
+Watch the getMessageThread in the user.service defintion
+
+Design the chat system
+member-messages.component.html and CSS
+
+L170: arrive straight ot the messages tab when message is clicked
+See https://valor-software.com/ngx-bootstrap/#/tabs
+selectTab(tab_id: number)
+In the member-detail-component: added #memberTabs to the tabSet
+In the component.ts: 
+Added  @ViewChild('memberTabs')
+Add selectTab function to the member-detail.component.ts
+Member Detail:  (click)="selectTab(3)"
+
+
+
+
+
+
 

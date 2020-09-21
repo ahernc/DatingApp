@@ -8,21 +8,21 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class MemberDetailResolver implements Resolve<User> {
-    
+
     constructor(private userService: UserService, private router: Router, private alertify: AlertifyService) {
-       
+
     }
 
-    /* 
+    /*
     If you use the Ctrl+. and get the automatic implements interface, this is what you get:
-    
-    resolve(route: import('@angular/router').ActivatedRouteSnapshot, state: import('@angular/router').RouterStateSnapshot): User 
+
+    resolve(route: import('@angular/router').ActivatedRouteSnapshot, state: import('@angular/router').RouterStateSnapshot): User
     | import("rxjs").Observable<User> | Promise<User> {
         throw new Error('Method not implemented.');
-    } 
-    
-    L93: Manually typed version of the resolve implementation is below 
-    */ 
+    }
+
+    L93: Manually typed version of the resolve implementation is below
+    */
 
     resolve(route: ActivatedRouteSnapshot): Observable<User> {
         return this.userService.getUser(route.params.id).pipe (
