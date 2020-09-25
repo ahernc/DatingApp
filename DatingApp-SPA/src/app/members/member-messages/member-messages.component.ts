@@ -13,6 +13,8 @@ export class MemberMessagesComponent implements OnInit {
   @Input() recipientId: number;
   messages: Message[];
 
+  newMessage: any = {}; // use an Angular template form for the new messages...
+
   constructor(private userService: UserService, private authService: AuthService,
               private alertify: AlertifyService) { }
 
@@ -30,4 +32,20 @@ export class MemberMessagesComponent implements OnInit {
     );
   }
 
+  sendMessage() {
+    this.newMessage.recipientId = this.recipientId;
+    this.userService
+      .sendMessage(this.authService.decodedToken.nameid, this.newMessage)
+      .subscribe(
+        (message: Message) => {
+          // debugger; // Automatically adds a breakpoint into the Chrome developer tools.
+          // unshift, instead of push.  It is necessary to specify the type of object of the message
+          this.messages.unshift(message); 
+          this.newMessage.content = '';
+        },
+        error => {
+          this.alertify.error(error);
+        }
+      );
+  }
 }

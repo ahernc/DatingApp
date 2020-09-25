@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -67,10 +68,16 @@ namespace DatingApp.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateMessage(int userId, MessageForCreationDto messageForCreationDto)
         {
-            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+
+            //  Section 35 L428: Bring back the currentUser: 
+            // This is so that AutoMapper can map the photoUrl and KnownAs when a user types a Message in the messages tab:
+            var sender = await _repo.GetUser(userId);
+                        
+            if (sender.Id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
             messageForCreationDto.SenderId = userId;
+
             var recipient = await _repo.GetUser(messageForCreationDto.RecipientId);
 
             if (recipient == null)
@@ -80,11 +87,10 @@ namespace DatingApp.API.Controllers
 
             _repo.Add(message); // this isn't async.... 
 
-            var messageToReturn = _mapper.Map<MessageForCreationDto>(message);
-
-
-            if (await _repo.SaveAll())
+            if (await _repo.SaveAll()) {
+                var messageToReturn = _mapper.Map<MessageForCreationDto>(message);
                 return CreatedAtRoute("GetMessage", new { userId, id = message.Id }, messageToReturn);
+            }
 
             throw new Exception("Creating the message failed on save");
         }

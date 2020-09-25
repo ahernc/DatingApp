@@ -23,7 +23,12 @@ namespace DatingApp.API.Helpers
             CreateMap<UserForRegisterDto, User>();
 
             // ReverseMap: Reverses the mapping the other way so that the passwordSalt and Hash are not included by default
-            CreateMap<MessageForCreationDto, Message>().ReverseMap();   
+            CreateMap<MessageForCreationDto, Message>().ReverseMap()
+                //Section 35: In order to show the Sender's username and Photo straight away... 
+                .ForMember(m => m.SenderPhotoUrl, opt => opt
+                    .MapFrom(u => u.Sender.Photos.FirstOrDefault(p => p.IsMain).Url))
+                .ForMember(m => m.SenderKnownAs, opt => opt
+                    .MapFrom(u => u.Sender.KnownAs));
 
             CreateMap<Message, MessageToReturnDto>()
                 .ForMember(m => m.SenderPhotoUrl, opt => opt

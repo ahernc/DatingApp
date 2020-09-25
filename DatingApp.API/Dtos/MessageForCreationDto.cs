@@ -12,5 +12,9 @@ namespace DatingApp.API.Dtos
         {
             MessageSent = DateTime.Now;
         }
+        
+        // For the purpose of instantly showing the Picture and Name of the user who sent the message in the Message Thread:
+        public string SenderKnownAs { get; set; }
+        public string SenderPhotoUrl { get; set; }
     }
 }
