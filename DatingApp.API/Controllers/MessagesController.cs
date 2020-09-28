@@ -151,7 +151,7 @@ namespace DatingApp.API.Controllers
             message.IsRead = true;
 
             // In the lecture, this is now called DateRead.
-            message.MessageReceived = DateTime.Now;
+            message.DateRead = DateTime.Now;
 
             await _repo.SaveAll();
 
