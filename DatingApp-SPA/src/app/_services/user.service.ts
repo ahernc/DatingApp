@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders, HTTP_INTERCEPTORS, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HTTP_INTERCEPTORS,
+  HttpParams,
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { PaginatedResult } from '../_models/pagination';
@@ -23,12 +28,19 @@ import { Message } from '../_models/message';
 export class UserService {
   baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getUsers(page?, itemsPerPage?, userParams?, likesParam?): Observable<PaginatedResult<User[]>> {
+  getUsers(
+    page?,
+    itemsPerPage?,
+    userParams?,
+    likesParam?
+  ): Observable<PaginatedResult<User[]>> {
     // to fix the error about Observable, typesafe it:
     // L89: return this.http.get<User[]>(this.baseUrl + 'users', httpOptions);
-    const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
+    const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<
+      User[]
+    >();
 
     let params = new HttpParams();
 
@@ -44,23 +56,23 @@ export class UserService {
       params = params.append('orderBy', userParams.orderBy);
     }
 
-    if (likesParam === 'Likers')
-    {
+    if (likesParam === 'Likers') {
       params = params.append('likers', 'true');
     }
 
-
-    if (likesParam === 'Likees')
-    {
+    if (likesParam === 'Likees') {
       params = params.append('likees', 'true');
     }
 
-    return this.http.get<User[]>(this.baseUrl + 'users', { observe: 'response', params } )
+    return this.http
+      .get<User[]>(this.baseUrl + 'users', { observe: 'response', params })
       .pipe(
-        map(response => {
+        map((response) => {
           paginatedResult.result = response.body;
           if (response.headers.get('Pagination') != null) {
-            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+            paginatedResult.pagination = JSON.parse(
+              response.headers.get('Pagination')
+            );
           }
           return paginatedResult;
         })
@@ -80,7 +92,10 @@ export class UserService {
   setMainPhoto(userId: number, id: number) {
     // Because this is a post request, to satisfy the requirements send up an empty body {} in the request
     // Not entirely restful, but it's a happy compromise to keep things simple
-    return this.http.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {});
+    return this.http.post(
+      this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain',
+      {}
+    );
   }
 
   deletePhoto(userId: number, id: number) {
@@ -88,11 +103,16 @@ export class UserService {
   }
 
   sendLike(id: number, recipientId: number) {
-    return this.http.post(this.baseUrl + 'users/' + id + '/like/' + recipientId, {});
+    return this.http.post(
+      this.baseUrl + 'users/' + id + '/like/' + recipientId,
+      {}
+    );
   }
 
   getMessages(id: number, page?, itemsPerPage?, messageContainer?) {
-    const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
+    const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<
+      Message[]
+    >();
 
     let params = new HttpParams();
 
@@ -102,12 +122,18 @@ export class UserService {
       params = params.append('pageSize', itemsPerPage);
     }
 
-    return this.http.get<Message[]>(this.baseUrl + 'users/' + id + '/messages',    {observe: 'response', params})
+    return this.http
+      .get<Message[]>(this.baseUrl + 'users/' + id + '/messages', {
+        observe: 'response',
+        params,
+      })
       .pipe(
-        map(response => {
+        map((response) => {
           paginatedResult.result = response.body;
           if (response.headers.get('Pagination') != null) {
-            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+            paginatedResult.pagination = JSON.parse(
+              response.headers.get('Pagination')
+            );
           }
           return paginatedResult;
         })
@@ -115,7 +141,9 @@ export class UserService {
   }
 
   getMessageThread(id: number, recipientId: number) {
-    return this.http.get<Message[]>(this.baseUrl + 'users/' + id + '/messages/thread/' + recipientId);
+    return this.http.get<Message[]>(
+      this.baseUrl + 'users/' + id + '/messages/thread/' + recipientId
+    );
   }
 
   sendMessage(id: number, message: Message) {
@@ -123,6 +151,19 @@ export class UserService {
   }
 
   deleteMessage(id: number, userId: number) {
-    return this.http.post(this.baseUrl + 'users/' + userId + '/messages/' + id , {});
+    return this.http.post(
+      this.baseUrl + 'users/' + userId + '/messages/' + id,
+      {}
+    );
+  }
+
+  // Each time the messageTab is opened, this needs to be executed... in other words loadMessages
+  markAsRead(userId: number, messageId: number) {
+    this.http
+      .post(
+        this.baseUrl + 'users/' + userId + '/messages/' + messageId + '/read',
+        {}
+      )
+      .subscribe();
   }
 }

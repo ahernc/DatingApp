@@ -137,27 +137,27 @@ namespace DatingApp.API.Controllers
 
         }
 
-        // Temporarily commented out before check in. The DateRead property is not there in the Message class, 
-        // so will updateneed update migration first.... Will do this in separate commit. 
-        // [HttpPost("{id}/read")]
-        // public async Task<IActionResult> MarkMessageAsRead(int userId, int id)
-        // {
-        //     if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-        //         return Unauthorized();
+        [HttpPost("{id}/read")]
+        public async Task<IActionResult> MarkMessageAsRead(int userId, int id)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
 
-        //     var message = await _repo.GetMessage(id);
+            var message = await _repo.GetMessage(id);
 
-        //     if (message.RecipientId != userId)
-        //         return Unauthorized();
+            if (message.RecipientId != userId)
+                return Unauthorized();
 
-        //     message.IsRead = true;
-        //     message.DateRead = DateTime.Now;
+            message.IsRead = true;
 
-        //     await = _repo.SaveAll();
+            // In the lecture, this is now called DateRead.
+            message.MessageReceived = DateTime.Now;
 
-        //     return NoContent();
+            await _repo.SaveAll();
 
-        // }
+            return NoContent();
+
+        }
 
     }
 }
